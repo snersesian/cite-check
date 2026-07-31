@@ -13,7 +13,16 @@ A Claude Code plugin — it installs a skill that triggers automatically when yo
 /plugin install cite-check@cite-check
 ```
 
-> Tip: retrieval is noticeably more reliable if you also connect a **PubMed MCP** server — cite-check will use it for search and record retrieval and fall back to web search when it isn't present.
+## Recommended setup: connect a PubMed MCP
+
+cite-check works out of the box using web search, but it is **noticeably more reliable with a PubMed MCP connected** — it then pulls structured records straight from NCBI (PMID, DOI, `PublicationType`, abstract), which is what lets a citation reach *High* confidence and makes the retraction check dependable. Without one, it falls back to web retrieval and says so at the top of its output.
+
+Any PubMed / E-utilities MCP works. Options, easiest first:
+
+- **Anthropic's PubMed connector** — the lowest-friction choice, no local runtime to manage. See [Using the PubMed connector in Claude](https://claude.com/resources/tutorials/using-the-pubmed-connector-in-claude).
+- **Community MCP servers** (need a local Python/Node runtime): e.g. [JackKuo666/PubMed-MCP-Server](https://github.com/JackKuo666/PubMed-MCP-Server) or the multi-source [openags/paper-search-mcp](https://github.com/openags/paper-search-mcp) (PubMed + arXiv + bioRxiv). Follow that project's README for the exact `mcpServers` entry.
+
+> An NCBI API key (free) raises rate limits; add it to the server's env if it supports one.
 
 ## Ask for it like this
 

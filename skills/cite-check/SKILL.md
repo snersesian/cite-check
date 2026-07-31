@@ -55,7 +55,22 @@ the author can correct the parse.
 
 ### 2. Search
 
-Use the PubMed MCP if connected; otherwise use web search against PubMed and Europe PMC.
+**Retrieval path — prefer a PubMed MCP, in this order:**
+
+1. **A connected PubMed / E-utilities MCP** (or a multi-source paper MCP such as one
+   covering PubMed + Europe PMC + bioRxiv). Use it for both search (`esearch`) and record
+   retrieval (`efetch`/summary). This is strongly preferred: it returns structured,
+   authoritative metadata (PMID, DOI, journal, year, `PublicationType`, abstract) directly
+   from NCBI, which is what lets a citation reach **High** confidence.
+2. **Web search + fetch of the PubMed/Europe PMC record page**, only when no MCP is
+   connected. This works but is less reliable — snippets can be stale or truncated, and a
+   record you only saw as a search snippet (never fetched in full) **caps at Moderate
+   confidence** per the rubric.
+
+If no MCP is connected, say so once at the top of the output ("no PubMed MCP detected —
+using web retrieval; connect one for more reliable results") so the reader knows which
+path produced the citations. See the README's setup section for how to connect one.
+
 Search preprint servers in the same pass (see the preprint bullet below) — peer review
 lags, and for novelty/gap work the relevant paper is often not yet published.
 Query construction matters more than query count:
@@ -91,6 +106,26 @@ back thin, or you are in Landscape mode (where it is the default, not the option
 
 Batch PMIDs (up to about 20 per call) and pull titles, journals, years, DOIs, and
 abstracts. Read the abstract against the specific claim, not the general topic.
+
+**Retraction check — mandatory, before a paper can be cited.** This is fast and
+non-negotiable; citing a retracted paper as support is a research-integrity failure. Check
+every candidate on whichever path you used:
+
+- **Via MCP / E-utilities:** inspect the record's `PublicationType`. A retracted article
+  carries **`Retracted Publication`**; the notice itself is `Retraction of Publication`.
+  Also check `CommentsCorrections` for a `RetractionIn` link. Any of these → treat as
+  retracted.
+- **Via web fetch:** the PubMed and Europe PMC record pages show a prominent banner
+  ("This article has been retracted…") and often a colored notice at the top of the
+  abstract. If you fetched the page, you must look for it.
+- **By DOI (optional cross-check):** Crossref exposes retraction/expression-of-concern
+  status via its `update-to` / update-nature relations (it now carries the Retraction Watch
+  database). Useful when PubMed is ambiguous or the source is a preprint.
+
+If a paper is retracted, **do not place it in the citation body.** Move it to the
+"Retracted — do not cite" flag in the report (step 5) and keep searching for a sound
+replacement. Expressions of concern and corrections are not automatic disqualifiers, but
+note them and lower confidence.
 
 While reading each abstract, extract the **provenance** the reader needs to judge the
 claim without opening the paper:
@@ -161,13 +196,16 @@ Every claim therefore carries four fields the author can scan at a glance: **Tie
 (design strength), **Design & scale** (how the conclusion was reached and on what n),
 **Confidence** (how well this paper backs this claim), and **What it actually shows**.
 
-Close with two lists, both of which are as useful as the citations themselves:
+Close with these lists, each as useful as the citations themselves:
 
 - **Claims with no adequate primary source.** Say plainly that the literature does
   not support this yet. A genuine gap is a finding, and for a manuscript it is often
   the novelty argument.
 - **Claims where the best available source is weaker than the prose implies.** These
   are the reviewer-scrutiny points. Suggest hedged language.
+- **Retracted — do not cite.** Any paper the search surfaced that turned out to be
+  retracted (or under an expression of concern), with its PMID/DOI, so the author never
+  reaches for it. Omit this list only when it is empty.
 
 ## Common traps
 

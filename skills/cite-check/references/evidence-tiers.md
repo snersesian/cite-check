@@ -92,8 +92,13 @@ just as a paper would, and leaving preprints out is how a "no one has done this"
 quietly goes stale. Always check for a published version (Europe PMC links
 preprint↔published) and prefer it when it exists.
 
-**Retracted or corrected papers.** Check retraction status before citing. This is not
-optional and it is fast.
+**Retracted or corrected papers.** Check retraction status before citing — mandatory and
+fast. Signals: PubMed `PublicationType` = `Retracted Publication` (and `Retraction of
+Publication` for the notice), a `RetractionIn` link in `CommentsCorrections`, the
+retraction banner on the PubMed/Europe PMC record page, or a Crossref `update-to` relation
+(Crossref now carries the Retraction Watch database). A retracted paper never enters the
+citation body — it goes in the "Retracted — do not cite" list. An expression of concern or
+correction is not an automatic disqualifier, but note it and lower confidence.
 
 **Conference abstracts.** Tier C at best, and usually not citable. Say so.
 
