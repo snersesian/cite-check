@@ -1,0 +1,34 @@
+# macOS metadata (this repo lives on a non-native volume that creates these)
+._*
+.DS_Store
+.Spotlight-V100
+.Trashes
+.fseventsd
+
+# Editor / OS cruft
+*.swp
+*~
+.idea/
+.vscode/
+
+# Protective: never commit data, manuscripts, or secrets to a public repo.
+# This tool needs none of these — these patterns keep an accidental
+# `git add .` from leaking lab material.
+*.env
+.env*
+*.key
+*.pem
+secrets.*
+*.csv
+*.tsv
+*.xlsx
+*.h5
+*.h5ad
+*.fastq
+*.fastq.gz
+*.bam
+*.docx
+*.pptx
+data/
+raw/
+manuscripts/

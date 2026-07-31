@@ -1,0 +1,13 @@
+{
+  "name": "cite-check",
+  "owner": {
+    "name": "Sarah Nersesian"
+  },
+  "plugins": [
+    {
+      "name": "cite-check",
+      "source": "./",
+      "description": "Find the single strongest primary citation for each factual claim, PMID-anchored and graded by evidence tier."
+    }
+  ]
+}
